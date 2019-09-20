@@ -1,6 +1,8 @@
 var express = require('express');
 var path = require('path');
 
+const PORT = process.env.PORT || 3000
+
 var app = express();
 
 app.use(express.json());
@@ -35,6 +37,6 @@ app.get('/api/annotations/:id', controllers.annotations.ctrlAnnotationGET)
 app.post('/api/annotations', controllers.annotations.ctrlAnnotationPOST)
 
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(PORT, function () {
+  console.log('Example app listening on port ' + PORT)
 });
