@@ -1,7 +1,7 @@
 var app = new annotator.App();
 app.include(annotator.ui.main);
 app.include(annotator.storage.http, {
-    prefix: 'http://localhost:3000/api',
+    prefix: getPageBaseUrl() + '/api',
     urls: {
         create: '/annotations',
         update: '/annotations/{id}',
@@ -15,3 +15,7 @@ app.start()
 .then(function () {
     app.annotations.load({uri: window.location.href});
 });;
+
+function getPageBaseUrl() {
+    return window.location.protocol + "//" + window.location.host;
+}
