@@ -3,10 +3,12 @@ var path = require('path');
 
 var app = express();
 
+app.use(express.json());
 app.use('/resources', express.static('public'));
 
 const controllers = {
-    webproxy: require('./controllers/ctrlWebProxy.js')
+    webproxy: require('./controllers/ctrlWebProxy.js'),
+    annotations: require('./controllers/ctrlAnnotations.js'),
 }
 
 const asyncMiddleware = fn =>
@@ -26,6 +28,11 @@ app.get('/annotator', asyncMiddleware(async (req, res, next) => {
         res.send("Select a requestType");
     }
 }));
+
+app.get('/api/search', controllers.annotations.ctrlSearchAnnotationsGET)
+app.get('/api/annotations', controllers.annotations.ctrlAnnotationsGET)
+app.get('/api/annotations/:id', controllers.annotations.ctrlAnnotationGET)
+app.post('/api/annotations', controllers.annotations.ctrlAnnotationPOST)
 
 
 app.listen(3000, function () {
