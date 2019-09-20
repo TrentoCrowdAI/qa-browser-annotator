@@ -7,9 +7,9 @@ const manageRequest = async function(req, res) {
     responseText = injectBaseUrl(responseText, baseUrl)
     responseText = injectScript(req, responseText, "/resources/libs/jquery/jquery.min.js")
     responseText = injectScript(req, responseText, "/resources/libs/annotatorjs/annotator.min.js")
-    responseText = injectScript(req, responseText, "/resources/scripts/test.js")
+    responseText = injectScript(req, responseText, "/resources/scripts/testInject.js")
     responseText = injectScript(req, responseText, "/resources/scripts/ctrl-highlight-answers.js")
-    responseText = injectCss(req, responseText, "/resources/css/test.css")
+    responseText = injectCss(req, responseText, "/resources/css/testInject.css")
     
     res.send(responseText)
 
