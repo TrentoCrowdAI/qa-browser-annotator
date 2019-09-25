@@ -40,7 +40,7 @@ const insertAnnotation = async function(pageurl, annotation) {
     if (webpageEntry && webpageEntry.data) {
         let allAnnotations = webpageEntry.data
         allAnnotations.push(annotation)
-        await pool.query('UPDATE ' + TABLE_NAME_ANNOTATIONS + ' SET data = $1 WHERE id = $2;', [JSON.stringify(allAnnotations), webpageEntry.id]);
+        await pool.query('UPDATE ' + TABLE_NAME_ANNOTATIONS + ' SET data = $1, updated_at = NOW() WHERE id = $2;', [JSON.stringify(allAnnotations), webpageEntry.id]);
     } else {
         await pool.query('INSERT INTO ' + TABLE_NAME_ANNOTATIONS + '(webpageurl, data) VALUES($1, $2);', [pageurl, JSON.stringify([annotation])]);
     }
