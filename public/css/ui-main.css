@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    width: 100%;
+}
+
+.task-description {
+    margin: 8px 16px;
+    padding: 16px;
+    border: 1px solid black;
+}
+
+.content {
+    display: flex;
+}
+
+.content .webpage {
+    width: 70%;
+}
+
+.content .sidebar {
+    width: 30%;
+    padding: 16px
+}
