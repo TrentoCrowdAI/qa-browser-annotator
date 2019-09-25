@@ -15,16 +15,14 @@ const ctrlAnnotationGET = async (req, res) => {
 
 const ctrlAnnotationPOST = async (req, res) => {
     console.log(req.body)
-    const annotation = await db.insertAnnotation(req.body)
+    const annotation = await db.insertAnnotation(req.body.pageurl, req.body)
     res.send(annotation)
 }
 const ctrlSearchAnnotationsGET = async (req, res) => {
-    const annotations = await db.getSearchAnnotations()
-    let toRtn = {
-        rows: annotations,
-        total: annotations.length
-    }
-    res.send(toRtn)
+    console.log(req.query.pageurl);
+    const annotations = await db.getSearchAnnotations(req.query.pageurl)
+    
+    res.send(annotations)
 }
 
 
