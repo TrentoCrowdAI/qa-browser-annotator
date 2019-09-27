@@ -7,7 +7,7 @@ body {
     width: 100%;
 }
 
-.task-description {
+.header-child  {
     margin: 8px 16px;
     padding: 16px;
     border: 1px solid black;
@@ -15,6 +15,7 @@ body {
 
 .content {
     display: flex;
+    height: 80%;
 }
 
 .content .webpage {
