@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000
 
 var app = express();
 
+app.enable('trust proxy');
 app.use(express.json());
 app.use('/resources', express.static('public'));
 
