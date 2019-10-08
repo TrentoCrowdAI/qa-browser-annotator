@@ -5,11 +5,14 @@
 
     </head>
     <body>
-        <div class="header">
+        <div id="div-header" class="header" data-url-readonly="false">
             <div class="header-child webpage-selector">
                 <label>Webpage: </label>
                 <input id="input-webpage-url" type="text" name="webpageurl" value="https://it.wikipedia.org/wiki/Trento"/>
                 <button id="btn-webpage-load">Load</button>
+            </div>
+            <div class="header-child webpage-title hidden">
+                <div>Webpage: <span id="label-webpage-url"></span></div>
             </div>
             <div class="header-child task-description">
                 Task: How many eggs do I need?
@@ -18,7 +21,14 @@
         <div class="content">
                 <object class="webpage" id="webpage-renderer" data="" height="90%" type="text/html"></object>
                 <div class="sidebar">
-                    <h3>Current answers:</h3>
+                    <button id="btn-delete-all">Delete highlights</button>
+                    <button id="btn-submit">Submit</button>
+                    <div>
+                        <h3>Instructions</h3>
+                        <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porta, tortor et ullamcorper placerat, metus ipsum sodales mi, vel gravida eros metus vitae justo. Praesent ligula magna, finibus sit amet lacinia ac, ultricies quis dolor. Curabitur feugiat rhoncus ex, vitae euismod ante convallis in. Duis volutpat diam eu dignissim euismod. Pellentesque id erat ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin eros est, ornare ullamcorper eros sed, blandit scelerisque ante.
+                        </p>
+                    </div>
                 </div>
         </div>
     </body>

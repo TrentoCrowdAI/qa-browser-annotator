@@ -15,7 +15,13 @@ const ctrlAnnotationGET = async (req, res) => {
 
 const ctrlAnnotationPOST = async (req, res) => {
     console.log(req.body)
-    const annotation = await db.insertAnnotation(req.body.pageurl, req.body)
+    //const annotation = await db.insertAnnotation(req.body.pageurl, req.body)
+    const annotation = await db.updateAnnotation(req.body.pageurl, req.body.highlights)
+    res.send(annotation)
+}
+const ctrlAnnotationDELETE = async (req, res) => {
+    let { pageurl } = req.body;
+    const annotation = await db.deleteAnnotation(pageurl, req.params.id)
     res.send(annotation)
 }
 const ctrlSearchAnnotationsGET = async (req, res) => {
@@ -31,4 +37,5 @@ module.exports = {
     ctrlAnnotationsGET,
     ctrlAnnotationGET,
     ctrlAnnotationPOST,
+    ctrlAnnotationDELETE,
 }

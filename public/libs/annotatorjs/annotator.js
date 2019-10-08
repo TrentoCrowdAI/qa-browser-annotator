@@ -14372,8 +14372,24 @@
             var node = nodes[i];
             if (!white.test(node.nodeValue)) {
                 var hl = global.document.createElement('span');
-                hl.className = cssClass;
+                if (i == 0) {
+                    hl.className = cssClass + " highlight-start"
+                } else {
+                    hl.className = cssClass;
+                }
                 node.parentNode.replaceChild(hl, node);
+                if (i == 0) {        
+                    var deleteBtn = global.document.createElement('button');
+                    deleteBtn.className = "highlight-delete-btn";
+                    deleteBtn.innerHTML = "X";
+                    deleteBtn.onclick = function(event) {
+                        let annotation = $(event.target)
+                            .parent('.annotator-hl')
+                            .data('annotation');
+                        app.annotations['delete'](annotation);
+                    }
+                    hl.appendChild(deleteBtn)
+                }
                 hl.appendChild(node);
                 results.push(hl);
             }
@@ -14416,6 +14432,9 @@
         $(this.element)
             .find("." + this.options.highlightClass)
             .each(function (_, el) {
+                var debtn = $(el).find(".highlight-delete-btn").first()
+                debtn.remove();
+                var asd = $(el).contents()
                 $(el).contents().insertBefore(el);
                 $(el).remove();
             });
@@ -14523,6 +14542,8 @@
         for (var i = 0, len = annotation._local.highlights.length; i < len; i++) {
             var h = annotation._local.highlights[i];
             if (h.parentNode !== null) {
+                var deleteBtn = $(h).find(".highlight-delete-btn").first();
+                deleteBtn.remove();
                 $(h).replaceWith(h.childNodes);
             }
         }
@@ -14799,12 +14820,12 @@
                     app.annotations.create(ann);
                 }
             });
-            s.adder.attach();
+            //s.adder.attach();
     
             s.editor = new editor.Editor({
                 extensions: options.editorExtensions
             });
-            s.editor.attach();
+            //s.editor.attach();
     
             addPermissionsCheckboxes(s.editor, ident, authz);
     
@@ -14814,10 +14835,13 @@
                 onSelection: function (ranges, event) {
                     if (ranges.length > 0) {
                         var annotation = makeAnnotation(ranges);
-                        s.interactionPoint = util.mousePosition(event);
-                        s.adder.load(annotation, s.interactionPoint);
+                        app.annotations.create(annotation);
+                        s.editor.submit(); //this bypass the adder dialog
+                        //s.highlighter.draw(annotation);
+                        //s.interactionPoint = util.mousePosition(event);
+                        //s.adder.load(annotation, s.interactionPoint);
                     } else {
-                        s.adder.hide();
+                        //s.adder.hide();
                     }
                 }
             });
@@ -14842,7 +14866,7 @@
                 autoViewHighlights: options.element,
                 extensions: options.viewerExtensions
             });
-            s.viewer.attach();
+            //s.viewer.attach();
     
             injectDynamicStyle();
         }
@@ -14858,6 +14882,8 @@
                 s.viewer.destroy();
                 removeDynamicStyle();
             },
+
+            undrawHighlightsAll: function() { s.highlighter.destroy(); },
     
             annotationsLoaded: function (anns) { s.highlighter.drawAll(anns); },
             annotationCreated: function (ann) { s.highlighter.draw(ann); },

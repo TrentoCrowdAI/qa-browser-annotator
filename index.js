@@ -39,6 +39,7 @@ app.get('/api/search', controllers.annotations.ctrlSearchAnnotationsGET)
 app.get('/api/annotations', controllers.annotations.ctrlAnnotationsGET)
 app.get('/api/annotations/:id', controllers.annotations.ctrlAnnotationGET)
 app.post('/api/annotations', controllers.annotations.ctrlAnnotationPOST)
+app.delete('/api/annotations/:id', controllers.annotations.ctrlAnnotationDELETE)
 
 
 app.listen(PORT, function () {

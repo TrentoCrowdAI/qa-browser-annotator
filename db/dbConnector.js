@@ -46,10 +46,37 @@ const insertAnnotation = async function(pageurl, annotation) {
     }
     return true;
 }
+const updateAnnotation = async function(pageurl, highlights) {
+    highlights.map(el => {
+        el.id = uuid()
+        return el
+    })
+
+    let webpageEntry = await getSearchAnnotations(pageurl);
+
+    if (webpageEntry && webpageEntry.data) {
+        await pool.query('UPDATE ' + TABLE_NAME_ANNOTATIONS + ' SET data = $1, updated_at = NOW() WHERE id = $2;', [JSON.stringify(highlights), webpageEntry.id]);
+    } else {
+        await pool.query('INSERT INTO ' + TABLE_NAME_ANNOTATIONS + '(webpageurl, data) VALUES($1, $2);', [pageurl, JSON.stringify(highlights)]);
+    }
+    return true;
+}
+const deleteAnnotation = async function(pageurl, annotationId) {    
+    let webpageEntry = await getSearchAnnotations(pageurl);
+
+    if (webpageEntry && webpageEntry.data) {
+        let allAnnotations = webpageEntry.data
+        let annotations = allAnnotations.filter(function(item) { return item.annotation_id != annotationId; })
+        await pool.query('UPDATE ' + TABLE_NAME_ANNOTATIONS + ' SET data = $1, updated_at = NOW() WHERE id = $2;', [JSON.stringify(annotations), webpageEntry.id]);
+    }
+    return true;
+}
 
 module.exports = {
     getSearchAnnotations,
     getAnnotations,
     getAnnotationById,
     insertAnnotation,
+    deleteAnnotation,
+    updateAnnotation
 }

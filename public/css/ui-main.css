@@ -26,3 +26,6 @@ body {
     width: 30%;
     padding: 16px
 }
+.hidden {
+    display: none;
+}
