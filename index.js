@@ -20,9 +20,6 @@ const asyncMiddleware = fn =>
       .catch(next);
   };
 
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/html/index.html'));
-});
 app.get('/ui', function (req, res) {
   res.sendFile(path.join(__dirname + '/html/index_ui.html'));
 });
